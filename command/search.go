@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/codegangsta/cli"
-	"github.com/tunglam14/csn/song"
+	"github.com/tunglam14/gocsn/song"
 )
 
 func CmdSearch(c *cli.Context) {

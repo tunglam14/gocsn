@@ -55,12 +55,12 @@ GLOBAL OPTIONS:
 To install, use `go get`:
 
 ```bash
-$ go get -d github.com/tunglam14/csn
+$ go get -d github.com/tunglam14/gocsn
 ```
 
 ## Contribution
 
-1. Fork ([https://github.com/tunglam14/csn/fork](https://github.com/tunglam14/csn/fork))
+1. Fork ([https://github.com/tunglam14/gocsn/fork](https://github.com/tunglam14/gocsn/fork))
 1. Create a feature branch
 1. Commit your changes
 1. Rebase your local changes against the master branch

@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/tunglam14/csn/command"
+	"github.com/tunglam14/gocsn/command"
 )
 
 var GlobalFlags = []cli.Flag{}
