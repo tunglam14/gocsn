@@ -1,4 +1,4 @@
-# csn
+# gocsn
 
 ## Description
 
@@ -7,7 +7,7 @@ CLI version of chiasenhac.com, written in Golang
 ## Usage
 
 ```
-$ csn search "Co khi nao roi xa"
+$ gocsn search "Co khi nao roi xa"
 Search: Co khi nao roi xa
 =======
 Có Khi Nào Rời Xa - Bích Phương | 4:25Lossless | Download: 147.063
@@ -28,7 +28,7 @@ MP3 128kbps: http://data16.chiasenhac.com/downloads/1016/2/1015655-c01d39a9/128/
 
 
 ```
-$ csn help
+$ gocsn help
 NAME:
    csn - ChiaSeNhac.com CLI
 
@@ -55,7 +55,7 @@ GLOBAL OPTIONS:
 To install, use `go get`:
 
 ```bash
-$ go get -d github.com/tunglam14/gocsn
+$ go get -u github.com/tunglam14/gocsn
 ```
 
 ## Contribution
