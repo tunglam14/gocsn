@@ -8,8 +8,7 @@ import (
 )
 
 func CmdSearch(c *cli.Context) {
-	songName := song.GetNameFromArgs(c.Args())
-	fmt.Println("Search:", songName)
-	fmt.Println("=======")
-	song.ShowSearchResult(songName)
+	songName := c.Args()[0]
+	fmt.Printf("Search: %s \n=======", songName)
+	song.ListByName(songName)
 }

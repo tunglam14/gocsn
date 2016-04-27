@@ -10,7 +10,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-func GetDownloadInfo(songURL string) map[string]string {
+func getDownloadInfo(songURL string) map[string]string {
 	pageURL := getDownloadPageURL(songURL)
 	return getLinksFromDownloadPage(pageURL)
 }
@@ -52,12 +52,12 @@ func parseDownloadLink(s *goquery.Selection) (downLoadLink, songBitrate string, 
 	songBitrate = strings.Replace(songBitrate, "]", "", -1)
 
 	// endcode URI
-	downloadLink = urlEncode(downloadLink)
+	downloadLink = encodeLinkToURIFormat(downloadLink)
 
 	return downloadLink, songBitrate, true
 }
 
-func urlEncode(unencoded string) string {
+func encodeLinkToURIFormat(unencoded string) string {
 	var encoded *url.URL
 	encoded, err := url.Parse(unencoded)
 	if err != nil {

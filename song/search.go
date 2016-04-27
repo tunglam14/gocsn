@@ -8,24 +8,26 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-func SearchByName(songName string) []Song {
-	song := findSongInfo(songName)
-	return song
+// ListByName list all songs that found on search page
+func ListByName(songName string) {
+	for _, song := range searchByName(songName) {
+		song.show()
+	}
 }
 
-func findSongInfo(songName string) []Song {
+// searchByName will crawl chiasenhac search page: search.chiasenhac.com/search.php?s=...
+// to find infomation by song name
+func searchByName(songName string) []Song {
 	songNameQueryString := strings.Replace(songName, " ", "+", -1)
 	songSearchURL := fmt.Sprintf("%s%s", searchURL, songNameQueryString)
 
 	doc, err := goquery.NewDocument(songSearchURL)
 	if err != nil {
-		fmt.Println("Parse song URL error")
+		fmt.Printf("Parse song URL error: %s", songSearchURL)
 		os.Exit(1)
 	}
 
-	// var songs []Song
 	songs := make([]Song, searchResult)
-
 	doc.Find(".bod .tbtable tr").Each(func(i int, s *goquery.Selection) {
 		// i=0 means head of table (title), loop should start with i = 1
 		if i > 0 && i <= searchResult {
@@ -37,14 +39,13 @@ func findSongInfo(songName string) []Song {
 			songs[i-1] = <-c
 		}
 	})
-
 	return songs
 }
 
 func getSongData(s *goquery.Selection, c chan Song) {
 	var song Song
 	s.Find("td").Each(func(i int, songLine *goquery.Selection) {
-		lineValue := formatSongData(songLine.Text())
+		lineValue := formatInnerHTMLValue(songLine.Text())
 		switch i {
 		case 1:
 			song.Name = lineValue
@@ -55,7 +56,8 @@ func getSongData(s *goquery.Selection, c chan Song) {
 			song.DownloadTotal = lineValue
 		}
 	})
-	song.DownloadLink = GetDownloadInfo(song.URL)
+	// getDownloadInfo from download_link.go
+	song.DownloadLink = getDownloadInfo(song.URL)
 
 	c <- song
 }
@@ -71,7 +73,7 @@ func getSongURL(s *goquery.Selection) string {
 }
 
 // Remove whitespace, tab, newline chars
-func formatSongData(in string) (out string) {
+func formatInnerHTMLValue(in string) (out string) {
 	out = strings.TrimSpace(in)
 	out = strings.Replace(out, "\t", "", -1)
 	out = strings.Replace(out, "\n", " - ", -1)
